@@ -1,24 +1,23 @@
-import React, { useState } from "react";
-import Navbar from "./components/Navbar";
-import AddStudentForm from "./components/AddStudentForm";
-import StudentList from "./components/StudentList";
-import "./App.css";
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Home from './components/Home';
+import AddStudent from './components/AddStudent';
+import StudentInfo from './components/StudentInfo';
+import './styles.css';
 
 function App() {
-  const [showForm, setShowForm] = useState(false);
-  const [students, setStudents] = useState([]);
-
-  const handleAddStudent = (newStudent) => {
-    setStudents([...students, newStudent]);
-    setShowForm(false);
-  };
-
   return (
-    <div className="teacher-panel">
-      <Navbar onAddStudentClick={() => setShowForm(!showForm)} />
-      {showForm && <AddStudentForm onAddStudent={handleAddStudent} />}
-      <StudentList students={students} />
-    </div>
+    <Router>
+      <div className="app">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/add-student" element={<AddStudent />} />
+          <Route path="/student-info" element={<StudentInfo />} />
+        </Routes>
+        <Navbar />
+      </div>
+    </Router>
   );
 }
 
