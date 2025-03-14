@@ -1,10 +1,20 @@
 import React from 'react';
-import Navbar from './Navbar.js';
-const Logout = ({ onLogout }) => {
+
+const Logout = ({ onLogout, onCancel }) => {
   return (
     <div className="logout-page">
-      <h1>Are you sure you want to log out?</h1>
-      <button onClick={onLogout}>Logout</button>
+      <div className="logout-box">
+        <h2>Are you sure you want to log out?</h2>
+        <p>We'll miss you! Come back soon.</p>
+        <div className="logout-buttons">
+          <button className="logout-btn confirm-btn" onClick={onLogout}>
+            Yes, Logout
+          </button>
+          <button className="logout-btn cancel-btn" onClick={onCancel}>
+            Cancel
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

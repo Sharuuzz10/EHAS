@@ -3,8 +3,9 @@ import Login from './components/Login';
 import Home from './components/Home';
 import Student from './components/Student';
 import Logout from './components/Logout';
-import Navbar from './components/Navbar'; // Import Navbar
+import Navbar from './components/Navbar.js'; // Add .js extension // Import Navbar
 import './App.css';
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -16,6 +17,10 @@ function App() {
   const handleLogout = () => {
     setIsLoggedIn(false);
     setCurrentPage('home'); // Redirect to home after logout
+  };
+
+  const handleCancel = () => {
+    setCurrentPage('home'); // Redirect to home on cancel
   };
 
   const addStudent = (student) => {
@@ -30,9 +35,7 @@ function App() {
     <div className="app">
       {currentPage === 'home' && <Home teacher={teacher} setCurrentPage={setCurrentPage} />}
       {currentPage === 'student' && <Student students={students} addStudent={addStudent} setCurrentPage={setCurrentPage} />}
-      {currentPage === 'logout' && <Logout onLogout={handleLogout} />}
-
-      {/* Conditionally render Navbar */}
+      {currentPage === 'logout' && <Logout onLogout={handleLogout} onCancel={handleCancel} />}
       {currentPage !== 'logout' && <Navbar setCurrentPage={setCurrentPage} />}
     </div>
   );
