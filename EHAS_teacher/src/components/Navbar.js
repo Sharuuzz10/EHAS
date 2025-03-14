@@ -1,15 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import '../styles.css'; // Correct path to styles.css
 
-const Navbar = () => {
+const Navbar = ({ setCurrentPage }) => {
   return (
-    <nav className="navbar">
-      <Link to="/"><img src="/icons/home-icon.png" alt="Home" /></Link>
-      <Link to="/add-student"><img src="/icons/add-student-icon.png" alt="Add Student" /></Link>
-      <Link to="/student-info"><img src="/icons/student-info-icon.png" alt="Student Info" /></Link>
-      <button onClick={() => alert('Logged out')}><img src="/icons/logout-icon.png" alt="Logout" /></button>
-    </nav>
+    <div className="navbar">
+      <button onClick={() => setCurrentPage('home')}>
+        <i className="fas fa-home"></i> {/* Home icon */}
+        <span>Home</span>
+      </button>
+      <button onClick={() => setCurrentPage('student')}>
+        <i className="fas fa-user-graduate"></i> {/* Student icon */}
+        <span>Student</span>
+      </button>
+      <button onClick={() => setCurrentPage('logout')}>
+        <i className="fas fa-sign-out-alt"></i> {/* Logout icon */}
+        <span>Logout</span>
+      </button>
+    </div>
   );
 };
 

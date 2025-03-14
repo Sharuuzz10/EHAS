@@ -1,9 +1,16 @@
 import React from 'react';
+import Navbar from './Navbar.js'; // Add .js extension
 
-const Home = () => {
+const Home = ({ teacher, setCurrentPage }) => {
   return (
-    <div className="content">
-      <h1>Welcome to Student Management</h1>
+    <div className="home">
+      <h1></h1>
+      <div className="teacher-details">
+        <p>Name: {teacher.name}</p>
+        <p>ID: {teacher.id}</p>
+        <p>Assigned Hall: {teacher.hall}</p>
+      </div>
+      <Navbar setCurrentPage={setCurrentPage} />
     </div>
   );
 };

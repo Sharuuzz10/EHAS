@@ -1,23 +1,40 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import React, { useState } from 'react';
+import Login from './components/Login';
 import Home from './components/Home';
-import AddStudent from './components/AddStudent';
-import StudentInfo from './components/StudentInfo';
-import './styles.css';
+import Student from './components/Student';
+import Logout from './components/Logout';
+import Navbar from './components/Navbar'; // Import Navbar
+import './App.css';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentPage, setCurrentPage] = useState('home');
+  const [teacher, setTeacher] = useState({ name: 'John Doe', id: 'T123', hall: 'Hall 101' });
+  const [students, setStudents] = useState([]);
+
+  const handleLogin = () => setIsLoggedIn(true);
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setCurrentPage('home'); // Redirect to home after logout
+  };
+
+  const addStudent = (student) => {
+    setStudents([...students, student]);
+  };
+
+  if (!isLoggedIn) {
+    return <Login onLogin={handleLogin} />;
+  }
+
   return (
-    <Router>
-      <div className="app">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/add-student" element={<AddStudent />} />
-          <Route path="/student-info" element={<StudentInfo />} />
-        </Routes>
-        <Navbar />
-      </div>
-    </Router>
+    <div className="app">
+      {currentPage === 'home' && <Home teacher={teacher} setCurrentPage={setCurrentPage} />}
+      {currentPage === 'student' && <Student students={students} addStudent={addStudent} setCurrentPage={setCurrentPage} />}
+      {currentPage === 'logout' && <Logout onLogout={handleLogout} />}
+
+      {/* Conditionally render Navbar */}
+      {currentPage !== 'logout' && <Navbar setCurrentPage={setCurrentPage} />}
+    </div>
   );
 }
 
